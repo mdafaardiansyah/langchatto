@@ -34,3 +34,20 @@ func (l UserSession) Validate() error {
 	v := validator.New()
 	return v.Struct(l)
 }
+
+type LoginRequest struct {
+	Username string `json:"username" validate:"required"`
+	Password string `json:"password" validate:"required"`
+}
+
+func (l LoginRequest) Validate() error {
+	v := validator.New()
+	return v.Struct(l)
+}
+
+type LoginResponse struct {
+	Username     string `json:"username" `
+	FullName     string `json:"full_name" `
+	Token        string `json:"token" `
+	RefreshToken string `json:"refresh_token" `
+}
