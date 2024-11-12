@@ -8,6 +8,7 @@ import (
 	"github.com/kooroshh/fiber-boostrap/pkg/jwt_token"
 	"github.com/kooroshh/fiber-boostrap/pkg/response"
 	"golang.org/x/crypto/bcrypt"
+	"log"
 	"time"
 )
 
@@ -99,10 +100,24 @@ func Login(ctx *fiber.Ctx) error {
 		return response.SendFailureResponse(ctx, fiber.StatusInternalServerError, "internal server error", nil)
 	}
 
+	userSession := &models.UserSession{
+		UserID:              user.ID,
+		Token:               token,
+		RefreshToken:        refreshToken,
+		TokenExpired:        now.Add(jwt_token.MapTypeToken["token"]),
+		RefreshTokenExpired: now.Add(jwt_token.MapTypeToken["refresh_token"]),
+	}
+	err = repository.InsertNewUserSession(ctx.Context(), userSession)
+	if err != nil {
+		errResponse := fmt.Errorf("failed insert user session: %v", err)
+		log.Println(errResponse)
+		return response.SendFailureResponse(ctx, fiber.StatusInternalServerError, "terjadi kesalahan pada sistem", nil)
+	}
+
 	resp.Username = user.Username
 	resp.FullName = user.FullName
 	resp.Token = token
 	resp.RefreshToken = refreshToken
 
-	return response.SendSuccessResponse(ctx, user)
+	return response.SendSuccessResponse(ctx, resp)
 }
