@@ -1,9 +1,12 @@
 package database
 
 import (
+	"context"
 	"fmt"
 	"github.com/kooroshh/fiber-boostrap/app/models"
 	"github.com/kooroshh/fiber-boostrap/pkg/env"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -30,4 +33,18 @@ func SetupDatabase() {
 	}
 
 	log.Println("successfully migrate database!")
+}
+
+func SetupMongoDB() {
+	uri := env.GetEnv("MONGODB_URI", "")
+
+	client, err := mongo.Connect(context.TODO(), options.Client().
+		ApplyURI(uri))
+	if err != nil {
+		panic(err)
+	}
+	coll := client.Database("LangChatto_DB").Collection("message_history")
+	MongoDB = coll
+
+	fmt.Println("Successfully connected to MongoDB")
 }
