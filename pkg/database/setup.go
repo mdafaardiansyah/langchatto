@@ -46,5 +46,5 @@ func SetupMongoDB() {
 	coll := client.Database("LangChatto_DB").Collection("message_history")
 	MongoDB = coll
 
-	fmt.Println("Successfully connected to MongoDB")
+	log.Println("Successfully connected to MongoDB")
 }

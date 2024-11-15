@@ -10,10 +10,15 @@ import (
 	"github.com/kooroshh/fiber-boostrap/pkg/database"
 	"github.com/kooroshh/fiber-boostrap/pkg/env"
 	"github.com/kooroshh/fiber-boostrap/pkg/router"
+	"io"
+	"log"
+	"os"
 )
 
 func NewApplication() *fiber.App {
 	env.SetupEnvFile()
+	SetupLogFile()
+
 	database.SetupDatabase()
 	database.SetupMongoDB()
 	engine := html.New("./views", ".html")
@@ -27,4 +32,13 @@ func NewApplication() *fiber.App {
 	router.InstallRouter(app)
 
 	return app
+}
+
+func SetupLogFile() {
+	logFile, err := os.OpenFile("./logs/langchatto-app.log", os.O_CREATE|os.O_APPEND|os.O_RDWR, 0666)
+	if err != nil {
+		log.Fatal(err)
+	}
+	mw := io.MultiWriter(os.Stdout, logFile)
+	log.SetOutput(mw)
 }

@@ -36,7 +36,7 @@ func ServeWSMessaging(app *fiber.App) {
 			msg.Date = time.Now()
 			err := repository.InsertNewMessage(context.Background(), msg)
 			if err != nil {
-				fmt.Println(err)
+				log.Println(err)
 			}
 			broadcast <- msg
 		}
