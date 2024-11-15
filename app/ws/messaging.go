@@ -3,13 +3,15 @@ package ws
 import (
 	"context"
 	"fmt"
+	"log"
+	"time"
+
 	"github.com/gofiber/contrib/websocket"
 	"github.com/gofiber/fiber/v2"
 	"github.com/kooroshh/fiber-boostrap/app/models"
 	"github.com/kooroshh/fiber-boostrap/app/repository"
 	"github.com/kooroshh/fiber-boostrap/pkg/env"
-	"log"
-	"time"
+	"go.elastic.co/apm"
 )
 
 func ServeWSMessaging(app *fiber.App) {
@@ -33,11 +35,16 @@ func ServeWSMessaging(app *fiber.App) {
 				break
 			}
 
+			tx := apm.DefaultTracer.StartTransaction("Send Message", "ws")
+			ctx := apm.ContextWithTransaction(context.Background(), tx)
+
 			msg.Date = time.Now()
-			err := repository.InsertNewMessage(context.Background(), msg)
+			err := repository.InsertNewMessage(ctx, msg)
 			if err != nil {
 				log.Println(err)
 			}
+			tx.End()
+
 			broadcast <- msg
 		}
 	}))
