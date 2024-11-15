@@ -1,0 +1,24 @@
+2024/11/15 06:16:49 successfully migrate database!
+2024/11/15 06:16:49 Successfully connected to MongoDB
+2024/11/15 06:16:49 failed to listen: listen tcp4 0.0.0.0:8080: bind: address already in use
+2024/11/15 06:22:06 successfully migrate database!
+2024/11/15 06:22:06 Successfully connected to MongoDB
+2024/11/15 08:32:04 successfully migrate database!
+2024/11/15 08:32:04 Successfully connected to MongoDB
+2024/11/15 08:32:20 failed to insert new user: Error 1062 (23000): Duplicate entry 'dapuk123' for key 'users.uni_users_username'
+2024/11/15 08:32:27 failed to get user session on DB:  record not found
+2024/11/15 08:32:34 failed to parse jwt: token has invalid claims: token is expired
+2024/11/15 10:21:44 successfully migrate database!
+2024/11/15 10:21:44 Successfully connected to MongoDB
+2024/11/15 10:29:58 successfully migrate database!
+2024/11/15 10:29:58 Successfully connected to MongoDB
+2024/11/15 10:39:22 successfully migrate database!
+2024/11/15 10:39:22 Successfully connected to MongoDB
+2024/11/15 17:06:23 successfully migrate database!
+2024/11/15 17:06:23 Successfully connected to MongoDB
+2024/11/15 17:22:59 successfully migrate database!
+2024/11/15 17:22:59 Successfully connected to MongoDB
+2024/11/15 17:23:27 error payload:  websocket: close 1001 (going away)
+2024/11/15 17:26:17 successfully migrate database!
+2024/11/15 17:26:17 Successfully connected to MongoDB
+2024/11/15 17:26:24 error payload:  websocket: close 1001 (going away)
