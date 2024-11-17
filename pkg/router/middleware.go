@@ -11,6 +11,13 @@ import (
 	"go.elastic.co/apm"
 )
 
+// MiddlewareValidateAuth is a middleware that validates the authorization header
+// on each request. If the header is empty, it returns a 401 Unauthorized response.
+// If the header is not empty, it attempts to retrieve the corresponding user session
+// from the database. If the retrieval is successful, it validates the JWT token
+// using the ValidateToken function. If the validation is successful, it sets the
+// username and full_name locals on the request context and calls the next handler.
+// If the validation fails, it returns a 401 Unauthorized response.
 func MiddlewareValidateAuth(ctx *fiber.Ctx) error {
 	span, spanCtx := apm.StartSpan(ctx.Context(), "MiddlewareValidateAuth", "middleware")
 	defer span.End()
@@ -44,6 +51,13 @@ func MiddlewareValidateAuth(ctx *fiber.Ctx) error {
 	return ctx.Next()
 }
 
+// MiddlewareRefreshToken is a middleware that validates the authorization header
+// on each request. If the header is empty, it returns a 401 Unauthorized response.
+// If the header is not empty, it attempts to retrieve the corresponding user session
+// from the database. If the retrieval is successful, it validates the JWT token
+// using the ValidateToken function. If the validation is successful, it sets the
+// username and full_name locals on the request context and calls the next handler.
+// If the validation fails, it returns a 401 Unauthorized response.
 func MiddlewareRefreshToken(ctx *fiber.Ctx) error {
 	span, spanCtx := apm.StartSpan(ctx.Context(), "MiddlewareRefreshToken", "middleware")
 	defer span.End()

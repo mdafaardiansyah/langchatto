@@ -17,6 +17,12 @@ import (
 	"go.elastic.co/apm"
 )
 
+// NewApplication returns a new Fiber app with the following middleware:
+// - recover.New(): to recover from panics
+// - logger.New(): to log all requests
+// - monitor.New(): to expose metrics at /dashboard
+// - ws.ServeWSMessaging(): to serve WebSocket connections at /message/v1/send
+// - router.InstallRouter(): to install routes for API and HTTP
 func NewApplication() *fiber.App {
 	env.SetupEnvFile()
 	SetupLogFile()
@@ -38,6 +44,11 @@ func NewApplication() *fiber.App {
 	return app
 }
 
+// SetupLogFile configures the logging system to write logs to both the standard
+// output and a file named "langchatto-app.log" located in the "logs" directory.
+// If the log file does not exist, it will be created. If there is an error
+// opening or creating the log file, the function will log a fatal error and
+// terminate the program.
 func SetupLogFile() {
 	logFile, err := os.OpenFile("./logs/langchatto-app.log", os.O_CREATE|os.O_APPEND|os.O_RDWR, 0666)
 	if err != nil {

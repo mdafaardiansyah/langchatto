@@ -22,3 +22,5 @@
 2024/11/15 17:26:17 successfully migrate database!
 2024/11/15 17:26:17 Successfully connected to MongoDB
 2024/11/15 17:26:24 error payload:  websocket: close 1001 (going away)
+2024/11/15 17:35:14 successfully migrate database!
+2024/11/15 17:35:14 Successfully connected to MongoDB

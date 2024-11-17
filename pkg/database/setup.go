@@ -3,6 +3,9 @@ package database
 import (
 	"context"
 	"fmt"
+	"log"
+	"os"
+
 	"github.com/kooroshh/fiber-boostrap/app/models"
 	"github.com/kooroshh/fiber-boostrap/pkg/env"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -10,10 +13,11 @@ import (
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
-	"log"
-	"os"
 )
 
+// SetupDatabase connects to the database with the given dsn and migrates the required tables.
+// It also sets the logger to log mode Info.
+// If the database connection or migration fails, it logs the error and exits the program.
 func SetupDatabase() {
 	var err error
 
@@ -35,6 +39,9 @@ func SetupDatabase() {
 	log.Println("successfully migrate database!")
 }
 
+// SetupMongoDB sets up the MongoDB client with the given MONGODB_URI
+// environment variable and stores the message_history collection in the
+// MongoDB variable. If the connection fails, it panics.
 func SetupMongoDB() {
 	uri := env.GetEnv("MONGODB_URI", "")
 

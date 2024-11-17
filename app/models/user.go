@@ -15,6 +15,8 @@ type User struct {
 	FullName  string    `json:"full_name" gorm:"type:varchar(100);" validate:"required,min=6"`
 }
 
+// Validate checks the fields of the User struct against the defined validation tags
+// and returns an error if any validation rules are violated.
 func (l User) Validate() error {
 	v := validator.New()
 	return v.Struct(l)
@@ -31,6 +33,8 @@ type UserSession struct {
 	RefreshTokenExpired time.Time `json:"-" validate:"required"`
 }
 
+// Validate checks the fields of the UserSession struct against the defined validation tags
+// and returns an error if any validation rules are violated.
 func (l UserSession) Validate() error {
 	v := validator.New()
 	return v.Struct(l)
@@ -41,6 +45,8 @@ type LoginRequest struct {
 	Password string `json:"password" validate:"required"`
 }
 
+// Validate checks the fields of the LoginRequest struct against the defined
+// validation tags and returns an error if any validation rules are violated.
 func (l LoginRequest) Validate() error {
 	v := validator.New()
 	return v.Struct(l)

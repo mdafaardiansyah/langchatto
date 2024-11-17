@@ -23,6 +23,9 @@ var MapTypeToken = map[string]time.Duration{
 
 var jwtSecret = []byte(env.GetEnv("APP_SECRET", ""))
 
+// GenerateToken generates a JWT token given a username, fullname, tokenType, and a current time.
+// tokenType can be either "token" or "refresh_token". The token will be expired according to the
+// duration specified in MapTypeToken.
 func GenerateToken(ctx context.Context, username string, fullname string, tokenType string, now time.Time) (string, error) {
 	span, _ := apm.StartSpan(ctx, "GenerateToken", "jwt")
 	defer span.End()
@@ -46,6 +49,10 @@ func GenerateToken(ctx context.Context, username string, fullname string, tokenT
 	return resultToken, nil
 }
 
+// ValidateToken validates a JWT token given in the argument and returns a ClaimToken struct if the
+// validation is successful. If the validation fails, it returns an error.
+//
+// This function uses the APP_SECRET environment variable as the secret key.
 func ValidateToken(ctx context.Context, token string) (*ClaimToken, error) {
 	span, _ := apm.StartSpan(ctx, "ValidateToken", "jwt")
 	defer span.End()

@@ -10,6 +10,7 @@ import (
 type ApiRouter struct {
 }
 
+// InstallRouter registers all the routes under /api/* and /message/*
 func (h ApiRouter) InstallRouter(app *fiber.App) {
 	api := app.Group("/api", limiter.New())
 	api.Get("/", func(ctx *fiber.Ctx) error {
@@ -32,6 +33,8 @@ func (h ApiRouter) InstallRouter(app *fiber.App) {
 	messageV1Group.Get("/history", MiddlewareValidateAuth, controllers.GetHistory)
 }
 
+// NewApiRouter creates and returns a new instance of ApiRouter.
+// This is typically used to set up routes for the API, including user and message routes with middleware.
 func NewApiRouter() *ApiRouter {
 	return &ApiRouter{}
 }
