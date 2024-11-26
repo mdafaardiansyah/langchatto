@@ -56,6 +56,5 @@ jobs:
             -e APP_PORT_SOCKET=${{ secrets.APP_PORT_SOCKET }} \
             -e APP_SECRET=${{ secrets.APP_SECRET }} \
             -e MONGODB_URI=${{ secrets.MONGODB_URI }} \
-            -e ELASTIC_APM_SERVER_URL=${{ secrets.ELASTIC_APM_SERVER_URL }} \
             --name langchatto-app \
             ardidafa/langchatto-app
