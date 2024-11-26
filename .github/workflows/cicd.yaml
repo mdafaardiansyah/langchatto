@@ -1,3 +1,4 @@
+#Name of workflow
 name: Deploy LangChattoApp
 
 on:
@@ -28,6 +29,8 @@ jobs:
       - name: Delete old docker container
         run: docker rm -f langchatto-app
       - name: Running new docker container
-        run: docker run -d -p 8080:8080 -p 4000:4000 --name langchatto-app ardidafa/langchatto-app
+        run: docker run -d -p 8080:8080 -p 4000:4000 --name langchatto-app ardidafa/langchatto-app 
+
+        
 
       
