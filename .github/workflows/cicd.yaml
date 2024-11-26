@@ -42,16 +42,20 @@ jobs:
         run: docker rm -f langchatto-app
       - name: Running new docker container
         run: |
-          docker run -d -p 8080:8080 -p 4000:4000 \
-          -e DB_HOST=${{ secrets.DB_HOST }} \
-          -e DB_PORT=${{ secrets.DB_PORT }} \
-          -e DB_NAME=${{ secrets.DB_NAME }} \
-          -e DB_USER=${{ secrets.DB_USER }} \
-          -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
-          -e APP_NAME=${{ secrets.APP_NAME }} \
-          -e APP_HOST=${{ secrets.APP_HOST }} \
-          -e APP_PORT=${{ secrets.APP_PORT }} \
-          -e APP_PORT_SOCKET=${{ secrets.APP_PORT_SOCKET }} \
-          -e APP_SECRET=${{ secrets.APP_SECRET }} \
-          -e MONGODB_URI=${{ secrets.MONGODB_URI }} \
-          --name langchatto-app ardidafa/langchatto-app
+          docker run -d \
+            -p 8080:8080 \
+            -p 4000:4000 \
+            -e DB_HOST=${{ secrets.DB_HOST }} \
+            -e DB_PORT=${{ secrets.DB_PORT }} \
+            -e DB_NAME=${{ secrets.DB_NAME }} \
+            -e DB_USER=${{ secrets.DB_USER }} \
+            -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
+            -e APP_NAME=${{ secrets.APP_NAME }} \
+            -e APP_HOST=${{ secrets.APP_HOST }} \
+            -e APP_PORT=${{ secrets.APP_PORT }} \
+            -e APP_PORT_SOCKET=${{ secrets.APP_PORT_SOCKET }} \
+            -e APP_SECRET=${{ secrets.APP_SECRET }} \
+            -e MONGODB_URI=${{ secrets.MONGODB_URI }} \
+            -e ELASTIC_APM_SERVER_URL=${{ secrets.ELASTIC_APM_SERVER_URL }} \
+            --name langchatto-app \
+            ardidafa/langchatto-app
