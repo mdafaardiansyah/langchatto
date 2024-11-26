@@ -1,6 +1,7 @@
 #Name of workflow
 name: Deploy LangChattoApp
 
+#Branch that will trigger the workflow
 on:
   push:
     branches:
